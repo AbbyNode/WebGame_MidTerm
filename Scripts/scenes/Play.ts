@@ -1,15 +1,24 @@
-module scenes
-{
-    export class Play extends objects.Scene
-    {
+/**
+ * Source: Play.ts
+ * Author: Abby Shah
+ * Date: 2020, Feb 22
+ * 
+ * Description:
+ * This scene rolls 2 dice and displays the results visually and numerically
+ */
+
+module scenes {
+    export class Play extends objects.Scene {
         // PRIVATE INSTANCE MEMBERS
- 
+        private _rollButton: objects.Button;
+        private _d46Button: objects.Button;
+
+        private _dice: objects.Dice[];
 
         // PUBLIC PROPERTIES
 
         // CONSTRUCTOR
-        constructor()
-        {
+        constructor() {
             super();
 
             this.Start();
@@ -20,25 +29,66 @@ module scenes
         // PUBLIC METHODS
 
         //initialize and instatiate
-        public Start(): void 
-        {
-            
+        public Start(): void {
+            this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 300, 430, true);
+            this._d46Button = new objects.Button(config.Game.ASSETS.getResult("play_4d6"), 520, 430, true);
 
-            
-             this.Main();
-        }        
-        
-        public Update(): void 
-        {
+            this._dice = [];
+            this._createDice(2);
 
-        }
-        
-        public Main(): void 
-        {
-
-
+            this.Main();
         }
 
-        
+        public Update(): void {
+            this._dice.forEach(dice => {
+                dice.Update();
+            })
+        }
+
+        public Main(): void {
+            this.addChild(this._rollButton);
+            this._rollButton.on("click", ()=> {
+                this._roll();
+            });
+
+            this.addChild(this._d46Button);
+            this._d46Button.on("click", ()=>{
+                config.Game.SCENE = scenes.State.PLAY_4D6;
+            });
+
+        }
+
+        /**
+         * Rolls the dice
+         *
+         * @private
+         * @memberof Play
+         */
+        private _roll(): void {
+            this._dice.forEach(dice => {
+                dice.Roll((result, dice) => {
+                });
+            })
+        }
+
+        /**
+         * Creates x number of dice
+         *
+         * @private
+         * @param {number} amount
+         * @memberof Play
+         */
+        private _createDice(amount: number): void {
+            let offset = 200;
+            let spacing = (640-offset) / amount;
+
+            for (let i = 0; i<amount; i++) {
+                let dice = new objects.Dice();
+                dice.sprite.x = spacing * i + offset;
+                dice.sprite.y = 200;
+                this.addChild(dice.sprite);
+                this._dice[i] = dice;
+            }
+        }
     }
 }

@@ -15,7 +15,11 @@ let Game = (function () {
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "ocean", src: "./Assets/images/ocean.gif" },
-        { id: "plane", src: "./Assets/images/plane.png" }
+        { id: "plane", src: "./Assets/images/plane.png" },
+        { id: "rollButton", src: "./Assets/images/rollButton.png" },
+        { id: "play_4d6", src: "./Assets/images/play_4d6.png" },
+        { id: "play_2d6", src: "./Assets/images/play_2d6.png" },
+        { id: "diceSpriteSheet", src: "./Assets/images/diceSpriteSheet.png" }
     ];
     function Preload() {
         assets = new createjs.LoadQueue(); // asset container
@@ -66,8 +70,12 @@ let Game = (function () {
                 currentScene = new scenes.Start();
                 break;
             case scenes.State.PLAY:
-                console.log("switch to Play Scene");
+                console.log("switch to Play 2D6 Scene");
                 currentScene = new scenes.Play();
+                break;
+            case scenes.State.PLAY_4D6:
+                console.log("switch to Play 4D6 Scene");
+                currentScene = new scenes.Play4D6();
                 break;
             case scenes.State.END:
                 console.log("switch to End Scene");

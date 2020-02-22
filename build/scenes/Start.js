@@ -12,7 +12,8 @@ var scenes;
         // PUBLIC METHODS
         Start() {
             //instantiate a new Text object
-            this._welcomeLabel = new objects.Label("COMP397 - Midterm Test", "40px", "Consolas", "#000000", 320, 180, true);
+            this._authorLabel = new objects.Label("Abby Shah", "40px", "Consolas", "#000000", 320, 140, true);
+            this._welcomeLabel = new objects.Label("COMP397 - Midterm Test", "40px", "Consolas", "#000000", 320, 200, true);
             // buttons
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 430, true);
             this.Main();
@@ -20,6 +21,7 @@ var scenes;
         Update() {
         }
         Main() {
+            this.addChild(this._authorLabel);
             this.addChild(this._welcomeLabel);
             this.addChild(this._startButton);
             this._startButton.on("click", () => {
