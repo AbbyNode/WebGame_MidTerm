@@ -25,7 +25,10 @@ let Game = (function () {
             { id: "play_4d6", src: "./Assets/images/play_4d6.png" },
             { id: "play_2d6", src: "./Assets/images/play_2d6.png" },
             
-            { id: "diceSpriteSheet", src: "./Assets/images/diceSpriteSheet.png" }
+            { id: "table", src: "./Assets/images/table.png" },
+            { id: "diceSpriteSheet", src: "./Assets/images/diceSpriteSheet.png" },
+
+            { id: "diceRollSound", src: "./Assets/audio/engine.ogg" }
         ];
 
     function Preload(): void {

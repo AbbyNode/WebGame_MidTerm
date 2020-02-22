@@ -19,6 +19,7 @@ let Game = (function () {
         { id: "rollButton", src: "./Assets/images/rollButton.png" },
         { id: "play_4d6", src: "./Assets/images/play_4d6.png" },
         { id: "play_2d6", src: "./Assets/images/play_2d6.png" },
+        { id: "table", src: "./Assets/images/table.png" },
         { id: "diceSpriteSheet", src: "./Assets/images/diceSpriteSheet.png" }
     ];
     function Preload() {

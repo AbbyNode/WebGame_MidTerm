@@ -16,7 +16,11 @@ module scenes {
         private _rollButton: objects.Button;
         private _d46Button: objects.Button;
 
+        private _table: createjs.Bitmap;
+
         private _dice: objects.Dice[];
+        
+        private _resultLabel: objects.Label;
         
         // PUBLIC PROPERTIES
 
@@ -34,11 +38,18 @@ module scenes {
         //initialize and instatiate
         public Start(): void {
             this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 300, 430, true);
-
             this._d46Button = new objects.Button(config.Game.ASSETS.getResult("play_2d6"), 520, 430, true);
+
+            this._table = new createjs.Bitmap(config.Game.ASSETS.getResult("table"));
+            this._table.scaleX = 1.1;
+            this._table.scaleY = 1.1;
+            this._table.x = -100;
 
             this._dice = [];
             this._createDice(4);
+
+            this._resultLabel = new objects.Label("Result: ", "14pt", "consolas", "#000000", 300, 350, true);
+            this._resultLabel.visible = false;
 
             this.Main();
         }
@@ -50,6 +61,14 @@ module scenes {
         }
 
         public Main(): void {
+            this.addChild(this._table);
+
+            this._dice.forEach(dice => {
+                this.addChild(dice.object);
+            });
+            
+            this.addChild(this._resultLabel);
+
             this.addChild(this._rollButton);
             this._rollButton.on("click", ()=> {
                 this._roll();
@@ -68,22 +87,42 @@ module scenes {
          * @memberof Play
          */
         private _roll(): void {
-            let total = 0;
             let completed = 0;
 
             this._dice.forEach(dice => {
                 dice.Roll((result, dice) => {
-                    total += result;
                     completed++;
                     if (completed >= this._dice.length) {
-                        this._showResult(total);
+                        this._showResult();
                     }
                 });
             })
         }
 
-        private _showResult(result: number): void {
-            console.log(result);
+        private _showResult(): void {
+            let lowestResult = 7;
+            let lowestDiceIndex = -1;
+
+            // Find lowest dice
+            for (let i = 0; i< this._dice.length; i++) {
+                let dice = this._dice[i];
+                if (dice.result < lowestResult) {
+                    lowestResult = dice.result;
+                    lowestDiceIndex = i;
+                }
+            }
+
+            // Calculate total
+            let total = 0;
+            for (let i = 0; i< this._dice.length; i++) {
+                if (i != lowestDiceIndex) {
+                    total += this._dice[i].result;
+                }
+            }
+
+            // Show result on label
+            this._resultLabel.visible = true;
+            this._resultLabel.text = "Result: " + total;
         }
 
         /**
@@ -101,7 +140,6 @@ module scenes {
                 let dice = new objects.Dice();
                 dice.object.x = spacing * i + offset;
                 dice.object.y = 200;
-                this.addChild(dice.object);
                 this._dice[i] = dice;
             }
         }

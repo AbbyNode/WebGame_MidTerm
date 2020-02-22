@@ -64,7 +64,7 @@ var objects;
             this.sprite.scaleX = 0.5;
             this.sprite.scaleY = 0.5;
             this.object.addChild(this.sprite);
-            this._label = new objects.Label("1", "12pt", "consolas", "#000000", 0, 80);
+            this._label = new objects.Label("1", "14pt", "consolas", "#000000", 0, 80);
             this.object.addChild(this._label);
         }
         Update() {
