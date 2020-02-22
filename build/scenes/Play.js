@@ -56,6 +56,9 @@ var scenes;
          * @memberof Play
          */
         _roll() {
+            // Play sound
+            createjs.Sound.play("diceRollSound");
+            // Roll all die
             let completed = 0;
             this._dice.forEach(dice => {
                 dice.Roll((result, dice) => {
@@ -67,6 +70,9 @@ var scenes;
             });
         }
         _showResult() {
+            // Stop sound
+            createjs.Sound.stop();
+            // Show total in console
             let total = 0;
             this._dice.forEach(dice => {
                 total += dice.result;

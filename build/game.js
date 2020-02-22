@@ -28,6 +28,7 @@ let Game = (function () {
         assets.installPlugin(createjs.Sound); // supports sound preloading
         assets.loadManifest(assetManifest);
         assets.on("complete", Start);
+        createjs.Sound.registerSound("./Assets/audio/diceRoll.mp3", "diceRollSound");
     }
     /**
      * This method initializes the CreateJS (EaselJS) Library

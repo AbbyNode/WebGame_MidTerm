@@ -78,8 +78,11 @@ module scenes {
          * @memberof Play
          */
         private _roll(): void {
-            let completed = 0;
+            // Play sound
+            createjs.Sound.play("diceRollSound");
 
+            // Roll all die
+            let completed = 0;
             this._dice.forEach(dice => {
                 dice.Roll((result, dice) => {
                     completed++;
@@ -91,12 +94,14 @@ module scenes {
         }
 
         private _showResult(): void {
-            let total = 0;
+            // Stop sound
+            createjs.Sound.stop();
 
+            // Show total in console
+            let total = 0;
             this._dice.forEach(dice => {
                 total += dice.result;
             });
-
             console.log(total);
         }
 

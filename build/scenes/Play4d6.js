@@ -62,6 +62,9 @@ var scenes;
          * @memberof Play
          */
         _roll() {
+            // Play sound
+            createjs.Sound.play("diceRollSound");
+            // Roll all die
             let completed = 0;
             this._dice.forEach(dice => {
                 dice.Roll((result, dice) => {
@@ -73,9 +76,11 @@ var scenes;
             });
         }
         _showResult() {
+            // Stop sound
+            createjs.Sound.stop();
+            // Find lowest dice
             let lowestResult = 7;
             let lowestDiceIndex = -1;
-            // Find lowest dice
             for (let i = 0; i < this._dice.length; i++) {
                 let dice = this._dice[i];
                 if (dice.result < lowestResult) {

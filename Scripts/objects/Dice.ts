@@ -127,11 +127,15 @@ module objects {
          * @memberof Dice
          */
         public Roll(callback: (result: number, dice: Dice) => void): void {
+            // Start rolling
             this._rollStartTime = createjs.Ticker.getTime();
             this._rollCallback = callback;
             this._isRolling = true;
+
+            // Animate
             this._sprite.gotoAndPlay("rollSlow");
 
+            // Hide label
             this._label.visible = false;
         }
     }

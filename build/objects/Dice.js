@@ -98,10 +98,13 @@ var objects;
          * @memberof Dice
          */
         Roll(callback) {
+            // Start rolling
             this._rollStartTime = createjs.Ticker.getTime();
             this._rollCallback = callback;
             this._isRolling = true;
+            // Animate
             this._sprite.gotoAndPlay("rollSlow");
+            // Hide label
             this._label.visible = false;
         }
     }

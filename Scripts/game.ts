@@ -26,9 +26,7 @@ let Game = (function () {
             { id: "play_2d6", src: "./Assets/images/play_2d6.png" },
             
             { id: "table", src: "./Assets/images/table.png" },
-            { id: "diceSpriteSheet", src: "./Assets/images/diceSpriteSheet.png" },
-
-            { id: "diceRollSound", src: "./Assets/audio/engine.ogg" }
+            { id: "diceSpriteSheet", src: "./Assets/images/diceSpriteSheet.png" }
         ];
 
     function Preload(): void {
@@ -37,6 +35,8 @@ let Game = (function () {
         assets.installPlugin(createjs.Sound); // supports sound preloading
         assets.loadManifest(assetManifest);
         assets.on("complete", Start);
+        
+        createjs.Sound.registerSound("./Assets/audio/diceRoll.mp3", "diceRollSound");
     }
 
     /**
