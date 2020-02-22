@@ -62,6 +62,10 @@ var scenes;
          * @memberof Play
          */
         _roll() {
+            // Undim all
+            this._dice.forEach(dice => {
+                dice.object.alpha = 1;
+            });
             // Play sound
             createjs.Sound.play("diceRollSound");
             // Roll all die
@@ -88,6 +92,8 @@ var scenes;
                     lowestDiceIndex = i;
                 }
             }
+            // Dim lowest
+            this._dice[lowestDiceIndex].object.alpha = 0.6;
             // Calculate total
             let total = 0;
             for (let i = 0; i < this._dice.length; i++) {
