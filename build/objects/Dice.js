@@ -17,15 +17,28 @@ var objects;
         }
         //#endregion
         //#region public properties
+        get object() {
+            return this._object;
+        }
+        set object(v) {
+            this._object = v;
+        }
         get sprite() {
             return this._sprite;
         }
         set sprite(v) {
             this._sprite = v;
         }
+        get result() {
+            return this._result;
+        }
+        set result(v) {
+            this._result = v;
+        }
         _checkBounds() {
         }
         Start() {
+            this.object = new createjs.Container();
             let spriteSheet = new createjs.SpriteSheet({
                 images: [config.Game.ASSETS.getResult("diceSpriteSheet")],
                 frames: {
@@ -50,6 +63,9 @@ var objects;
             this.sprite = new createjs.Sprite(spriteSheet);
             this.sprite.scaleX = 0.5;
             this.sprite.scaleY = 0.5;
+            this.object.addChild(this.sprite);
+            this._label = new objects.Label("1", "12pt", "consolas", "#000000", 0, 80);
+            this.object.addChild(this._label);
         }
         Update() {
             // If rolling,
@@ -60,13 +76,16 @@ var objects;
                 // If more than required duration
                 if (timeDiff >= this._rollDuration) {
                     // Generate result
-                    let result = Math.round((Math.random() * 5) + 1);
+                    this.result = Math.round((Math.random() * 5) + 1);
                     // Stop sprite
-                    this.sprite.gotoAndStop(result - 1);
+                    this.sprite.gotoAndStop(this.result - 1);
                     // Stop rolling
                     this._isRolling = false;
+                    // Update label
+                    this._label.text = this.result.toString();
+                    this._label.visible = true;
                     // Callback
-                    this._rollCallback(result, this);
+                    this._rollCallback(this.result, this);
                 }
             }
         }
@@ -83,6 +102,7 @@ var objects;
             this._rollCallback = callback;
             this._isRolling = true;
             this._sprite.gotoAndPlay("rollSlow");
+            this._label.visible = false;
         }
     }
     objects.Dice = Dice;

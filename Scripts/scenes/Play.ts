@@ -42,7 +42,7 @@ module scenes {
         public Update(): void {
             this._dice.forEach(dice => {
                 dice.Update();
-            })
+            });
         }
 
         public Main(): void {
@@ -65,10 +65,23 @@ module scenes {
          * @memberof Play
          */
         private _roll(): void {
+            let total = 0;
+            let completed = 0;
+            let results = [];
+
             this._dice.forEach(dice => {
                 dice.Roll((result, dice) => {
+                    total += result;
+                    completed++;
+                    if (completed >= this._dice.length) {
+                        this._showResult(total);
+                    }
                 });
             })
+        }
+
+        private _showResult(result: number): void {
+            console.log(result);
         }
 
         /**
@@ -84,9 +97,9 @@ module scenes {
 
             for (let i = 0; i<amount; i++) {
                 let dice = new objects.Dice();
-                dice.sprite.x = spacing * i + offset;
-                dice.sprite.y = 200;
-                this.addChild(dice.sprite);
+                dice.object.x = spacing * i + offset;
+                dice.object.y = 200;
+                this.addChild(dice.object);
                 this._dice[i] = dice;
             }
         }

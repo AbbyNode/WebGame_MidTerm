@@ -7,7 +7,9 @@ module objects {
      */
     export class Dice extends GameObject {
         //#region private vars
+        private _object: createjs.Container;
         private _sprite: createjs.Sprite;
+        private _label: objects.Label;
 
         private _rollDuration: number = 1; // Seconds
 
@@ -15,15 +17,33 @@ module objects {
         private _isRolling: boolean = false;
         private _rollCallback: (result: number, dice: Dice) => void;
 
+        private _result : number;
+
         //#endregion
 
         //#region public properties
-        public get sprite() : createjs.Sprite {
+
+        public get object(): createjs.Container {
+            return this._object;
+        }
+        public set object(v: createjs.Container) {
+            this._object = v;
+        }
+
+        public get sprite(): createjs.Sprite {
             return this._sprite;
         }
-        public set sprite(v : createjs.Sprite) {
+        public set sprite(v: createjs.Sprite) {
             this._sprite = v;
         }
+
+        public get result() : number {
+            return this._result;
+        }
+        public set result(v : number) {
+            this._result = v;
+        }
+
         //#endregion
 
         constructor() {
@@ -36,6 +56,8 @@ module objects {
         }
 
         public Start(): void {
+            this.object = new createjs.Container();
+
             let spriteSheet = new createjs.SpriteSheet({
                 images: [config.Game.ASSETS.getResult("diceSpriteSheet")],
                 frames: {
@@ -60,6 +82,11 @@ module objects {
             this.sprite = new createjs.Sprite(spriteSheet);
             this.sprite.scaleX = 0.5;
             this.sprite.scaleY = 0.5;
+
+            this.object.addChild(this.sprite);
+
+            this._label = new objects.Label("1", "12pt", "consolas", "#000000", 0, 80);
+            this.object.addChild(this._label);
         }
 
         public Update(): void {
@@ -72,16 +99,20 @@ module objects {
                 // If more than required duration
                 if (timeDiff >= this._rollDuration) {
                     // Generate result
-                    let result = Math.round((Math.random()*5)+1);
+                    this.result = Math.round((Math.random() * 5) + 1);
 
                     // Stop sprite
-                    this.sprite.gotoAndStop(result-1);
+                    this.sprite.gotoAndStop(this.result - 1);
 
                     // Stop rolling
                     this._isRolling = false;
 
+                    // Update label
+                    this._label.text = this.result.toString();
+                    this._label.visible = true;
+
                     // Callback
-                    this._rollCallback(result, this);
+                    this._rollCallback(this.result, this);
                 }
             }
         }
@@ -100,6 +131,8 @@ module objects {
             this._rollCallback = callback;
             this._isRolling = true;
             this._sprite.gotoAndPlay("rollSlow");
+
+            this._label.visible = false;
         }
     }
 }
