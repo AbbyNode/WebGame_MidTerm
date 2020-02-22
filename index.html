@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS Section -->
+    <link rel="stylesheet" href="./Content/game.css">
+    <title>COMP397 - W2020 - Midterm Test</title>
+</head>
+<body>
+    <div id="mainContent">
+        <!-- The game "lives" inside the canvas -->
+        <canvas id="canvas" width="640" height="480"></canvas>
+    </div>
+    
+    <!-- JavaScript Section -->
+
+    <!-- 3rd party libraries-->
+    <script src="./node_modules/easeljs/lib/easeljs.min.js"></script>
+    <script src="./node_modules/tweenjs/lib/tweenjs.min.js"></script>
+    <script src="./node_modules/soundjs/lib/soundjs.min.js"></script>
+    <script src="./node_modules/preloadjs/lib/preloadjs.min.js"></script>
+
+    <!-- Game Scripts -->
+
+    <!-- Component Scripts -->
+    <script src="./build/util/Mathf.js"></script>
+    <script src="./build/objects/Vector2.js"></script>
+    <script src="./build/objects/GameObject.js"></script>
+    <script src="./build/objects/Scene.js"></script>
+    <script src="./build/scenes/State.js"></script>
+    <script src="./build/config/game.js"></script>
+
+    <!-- Managers -->
+    <script src="./build//managers/Collision.js"></script>
+
+    <!-- Game Objects -->
+    <script src="./build/objects/Player.js"></script>
+    <script src="./build/objects/Label.js"></script>
+    <script src="./build/objects/Button.js"></script>
+    <script src="./build/objects/Ocean.js"></script>
+    <script src="./build/objects/Plane.js"></script>
+
+    <!-- Scenes -->
+    <script src="./build/scenes/End.js"></script>
+    <script src="./build/scenes/Play.js"></script>
+    <script src="./build/scenes/Start.js"></script>
+
+    <script src="./build/game.js"></script>
+</body>
+</html>
