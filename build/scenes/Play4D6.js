@@ -66,6 +66,8 @@ var scenes;
             this._dice.forEach(dice => {
                 dice.object.alpha = 1;
             });
+            // Hide label
+            this._resultLabel.visible = false;
             // Play sound
             createjs.Sound.play("diceRollSound");
             // Roll all die
